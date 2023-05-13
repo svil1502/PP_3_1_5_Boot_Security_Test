@@ -7,8 +7,8 @@ import javax.validation.constraints.Size;
 
 
 @Entity
-@Table(name = "Person")
-public class Person {
+@Table(name = "users")
+public class User {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,10 +27,10 @@ public class Person {
     private String password;
 
     // Конструктор по умолчанию нужен для Spring
-    public Person() {
+    public User() {
     }
 
-    public Person(String username, int yearOfBirth) {
+    public User(String username, int yearOfBirth) {
         this.username = username;
         this.yearOfBirth = yearOfBirth;
     }
@@ -69,7 +69,7 @@ public class Person {
 
     @Override
     public String toString() {
-        return "Person{" +
+        return "User{" +
                 "id=" + id +
                 ", username='" + username + '\'' +
                 ", yearOfBirth=" + yearOfBirth +

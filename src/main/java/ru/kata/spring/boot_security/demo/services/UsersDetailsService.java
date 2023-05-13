@@ -3,33 +3,34 @@ package ru.kata.spring.boot_security.demo.services;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
-import ru.kata.spring.boot_security.demo.repositories.PeopleRepository;
+import ru.kata.spring.boot_security.demo.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import ru.kata.spring.boot_security.demo.models.Person;
-import ru.kata.spring.boot_security.demo.security.PersonDetails;
+import ru.kata.spring.boot_security.demo.models.User;
+import ru.kata.spring.boot_security.demo.security.UsersDetails;
 
         import java.util.Optional;
 
 
 @Service
-public class PersonDetailsService implements UserDetailsService {
+public class UsersDetailsService implements UserDetailsService {
 
-    private final PeopleRepository peopleRepository;
+    private final UserRepository userRepository;
 
     @Autowired
-    public PersonDetailsService(PeopleRepository peopleRepository) {
-        this.peopleRepository = peopleRepository;
+    public UsersDetailsService(UserRepository userRepository) {
+
+        this.userRepository = userRepository;
     }
 
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        Optional<Person> person = peopleRepository.findByUsername(s);
+        Optional<User> person = userRepository.findByUsername(s);
 
         if (person.isEmpty())
             throw new UsernameNotFoundException("User not found!");
 
-        return new PersonDetails(person.get());
+        return new UsersDetails(person.get());
     }
 }

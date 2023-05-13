@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import ru.kata.spring.boot_security.demo.models.Person;
+import ru.kata.spring.boot_security.demo.models.User;
 import ru.kata.spring.boot_security.demo.services.RegistrationService;
-import ru.kata.spring.boot_security.demo.util.PersonValidator;
+import ru.kata.spring.boot_security.demo.util.UserValidator;
 
 import javax.validation.Valid;
 
@@ -21,29 +21,29 @@ import javax.validation.Valid;
 public class AuthController {
 
     private final RegistrationService registrationService;
-    private final PersonValidator personValidator;
+    private final UserValidator userValidator;
 
     @Autowired
-    public AuthController(RegistrationService registrationService, PersonValidator personValidator) {
+    public AuthController(RegistrationService registrationService, UserValidator userValidator) {
         this.registrationService = registrationService;
-        this.personValidator = personValidator;
+        this.userValidator = userValidator;
     }
 
 
     @GetMapping("/registration")
-    public String registrationPage(@ModelAttribute("person") Person person) {
+    public String registrationPage(@ModelAttribute("user") User user) {
         return "registration";
     }
 
     @PostMapping("/registration")
-    public String performRegistration(@ModelAttribute("person") @Valid Person person,
+    public String performRegistration(@ModelAttribute("user") @Valid User user,
                                       BindingResult bindingResult) {
-        personValidator.validate(person, bindingResult);
+        userValidator.validate(user, bindingResult);
 
         if (bindingResult.hasErrors())
             return "/registration";
 
-        registrationService.register(person);
+        registrationService.register(user);
 
         return "redirect:/login";
     }

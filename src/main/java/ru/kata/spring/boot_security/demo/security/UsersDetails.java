@@ -3,15 +3,15 @@ package ru.kata.spring.boot_security.demo.security;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import ru.kata.spring.boot_security.demo.models.Person;
+import ru.kata.spring.boot_security.demo.models.User;
 import java.util.Collection;
 
 
-public class PersonDetails implements UserDetails {
-    private final Person person;
+public class UsersDetails implements UserDetails {
+    private final User user;
 
-    public PersonDetails(Person person) {
-        this.person = person;
+    public UsersDetails(User user) {
+        this.user = user;
     }
 
     @Override
@@ -21,12 +21,12 @@ public class PersonDetails implements UserDetails {
 
     @Override
     public String getPassword() {
-        return this.person.getPassword();
+        return this.user.getPassword();
     }
 
     @Override
     public String getUsername() {
-        return this.person.getUsername();
+        return this.user.getUsername();
     }
 
     @Override
@@ -50,7 +50,7 @@ public class PersonDetails implements UserDetails {
     }
 
     // Нужно, чтобы получать данные аутентифицированного пользователя
-    public Person getPerson() {
-        return this.person;
+    public User getUser() {
+        return this.user;
     }
 }
