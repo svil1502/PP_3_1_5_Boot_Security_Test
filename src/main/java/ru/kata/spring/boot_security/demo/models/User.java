@@ -1,11 +1,9 @@
 package ru.kata.spring.boot_security.demo.models;
 
 import javax.persistence.*;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 import java.util.Set;
-
 
 @Entity
 @Table(name = "users")
@@ -34,7 +32,6 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
 
-    // Конструктор по умолчанию нужен для Spring
     public User() {
     }
 
@@ -93,13 +90,14 @@ public class User {
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
-               // ", roles=" + roles +
+                // ", roles=" + roles +
                 '}';
     }
 
     public Set<Role> getRoles() {
         return roles;
     }
+
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }

@@ -28,7 +28,6 @@ public class AdminController {
         this.userValidator = userValidator;
     }
 
-    //@GetMapping("/admin")
     @GetMapping("/admin/user")
     public String index(Model model) {
         model.addAttribute("users", userService.index());
@@ -42,13 +41,12 @@ public class AdminController {
         return "show";
     }
 
-    //@DeleteMapping("/{id}")
     @DeleteMapping("/admin/{id}")
     public String delete(@PathVariable("id") int id) {
         userService.delete(id);
         return "redirect:user";
     }
-    //@GetMapping("/admin/{id}/edit")
+
     @GetMapping("/admin/{id}/edit")
     public String showEditUser(@PathVariable("id") int id, Model model) {
         model.addAttribute("user", userService.show(id));
@@ -63,6 +61,7 @@ public class AdminController {
         userService.update(user);
         return "redirect:user";
     }
+
     @GetMapping("/admin/new")
     public String showPageCreatingUser(Model model) {
         model.addAttribute("user", new User());
@@ -71,7 +70,7 @@ public class AdminController {
     }
 
     @PostMapping("/admin/user")
-    public String create(@ModelAttribute("user")@Valid User user,
+    public String create(@ModelAttribute("user") @Valid User user,
                          BindingResult bindingResult) {
         userValidator.validate(user, bindingResult);
 

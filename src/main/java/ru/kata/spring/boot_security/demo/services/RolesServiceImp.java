@@ -12,7 +12,7 @@ import java.util.Set;
 
 
 @Component
-public class RolesServiceImp implements RolesService{
+public class RolesServiceImp implements RolesService {
 
     private final RoleRepository roleRepository;
 
@@ -20,7 +20,6 @@ public class RolesServiceImp implements RolesService{
     public RolesServiceImp(RoleRepository roleRepository) {
         this.roleRepository = roleRepository;
     }
-
 
     @Override
     public Set<Role> getRoles() {

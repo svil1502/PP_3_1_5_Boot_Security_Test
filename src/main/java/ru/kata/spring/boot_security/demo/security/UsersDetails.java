@@ -7,6 +7,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import ru.kata.spring.boot_security.demo.models.Role;
 import ru.kata.spring.boot_security.demo.security.RoleGrantedAuthority;
 import ru.kata.spring.boot_security.demo.models.User;
+
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;

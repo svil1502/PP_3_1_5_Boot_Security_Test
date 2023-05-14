@@ -38,10 +38,12 @@ public class UserServiceImp implements UserService {
     public User show(int id) {
         return userRepository.findById(id).orElseThrow();
     }
+
     public User showOne() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         return ((UsersDetails) authentication.getPrincipal()).getUser();
     }
+
     @Transactional
     @Override
     public void delete(int id) {
@@ -50,7 +52,7 @@ public class UserServiceImp implements UserService {
 
     @Transactional
     public void update(User user) {
-       user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
     }
 

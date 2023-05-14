@@ -16,17 +16,13 @@ import ru.kata.spring.boot_security.demo.services.UsersDetailsService;
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private final SuccessUserHandler successUserHandler;
-   // private final AuthProviderImpl authProvider;
     private UsersDetailsService usersDetailsService;
 
     @Autowired
-    public WebSecurityConfig(SuccessUserHandler successUserHandler,
-                             UsersDetailsService userDetailsService
-                            // AuthProviderImpl authProvider
+    public WebSecurityConfig(SuccessUserHandler successUserHandler, UsersDetailsService userDetailsService
     ) {
         this.successUserHandler = successUserHandler;
         this.usersDetailsService = userDetailsService;
-       // this.authProvider = authProvider;
     }
 
     @Override
@@ -35,7 +31,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
 
                 .antMatchers("/", "/index", "/registration").permitAll()
-              //  .antMatchers("/", "/welcome").permitAll()
+                //  .antMatchers("/", "/welcome").permitAll()
                 .antMatchers("/admin/**").hasRole("ADMIN")
                 .antMatchers("/user/**").hasAnyRole("ADMIN", "USER")
                 .anyRequest().authenticated()
@@ -50,8 +46,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll();
     }
 
-
-
     // Настраивает аутентификацию
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 
@@ -59,6 +53,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         auth.userDetailsService(usersDetailsService)
                 .passwordEncoder(getPasswordEncoder());
     }
+
     @Bean
     public PasswordEncoder getPasswordEncoder() {
         return new BCryptPasswordEncoder();
