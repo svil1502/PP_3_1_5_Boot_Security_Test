@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Обновить</title>
+</head>
+<body>
+
+<form th:method="PATCH" th:action="@{/admin/{id}(id=${user.getId()})}" th:object="${user}">
+    <label for="name">Имя: </label>
+    <input type="text" th:field="*{name}" id="name"/>
+    <br>
+    <br/>
+    <br/>
+    <label for="email">email: </label>
+    <input type="text" th:field="*{email}" id="email"/>
+    <br/>
+    <br/>
+    <label for="username">Логин: </label>
+    <input type="text" th:field="*{username}" id="username"/>
+    <div th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></div>
+    <br/>
+    <br/>
+    <label for="password">password: </label>
+    <input type="password" th:field="*{password}" id="password" placeholder="password"/>
+    <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
+
+    <input type="submit" value="Обновить"/>
+</form>
+
+<form action="/logout">
+    <input type="submit" value="logout">
+</form>
+
+</body>
+</html>

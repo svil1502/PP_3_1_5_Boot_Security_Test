@@ -20,9 +20,11 @@ public class User {
     @Column(name = "username")
     private String username;
 
-    @Min(value = 1900, message = "Год рождения должен быть больше, чем 1900")
-    @Column(name = "year_of_birth")
-    private int yearOfBirth;
+    @Column(name = "name")
+    private String name;
+
+    @Column(name = "email")
+    private String email;
 
     @Column(name = "password")
     private String password;
@@ -36,9 +38,10 @@ public class User {
     public User() {
     }
 
-    public User(String username, int yearOfBirth) {
+    public User(String username, String name, String email) {
         this.username = username;
-        this.yearOfBirth = yearOfBirth;
+        this.name = name;
+        this.email = email;
     }
 
     public int getId() {
@@ -57,13 +60,6 @@ public class User {
         this.username = username;
     }
 
-    public int getYearOfBirth() {
-        return yearOfBirth;
-    }
-
-    public void setYearOfBirth(int yearOfBirth) {
-        this.yearOfBirth = yearOfBirth;
-    }
 
     public String getPassword() {
         return password;
@@ -73,15 +69,34 @@ public class User {
         this.password = password;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     @Override
     public String toString() {
         return "User{" +
                 "id=" + id +
                 ", username='" + username + '\'' +
-                ", yearOfBirth=" + yearOfBirth +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
+               // ", roles=" + roles +
                 '}';
     }
+
     public Set<Role> getRoles() {
         return roles;
     }

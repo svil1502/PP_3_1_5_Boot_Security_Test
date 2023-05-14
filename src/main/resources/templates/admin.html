@@ -6,6 +6,14 @@
 </head>
 <body>
 <h1>admin</h1>
+<div th:each="user : ${users}">
+    <a th:href="@{/admin/{id}(id=${user.getId()})}" th:text="${user.getName()}">user</a>
+</div>
+
+<br/>
+<hr/>
+
+<a href="/admin/new">Create new user</a>
 <a href = "/logout">Выйти</a>
 </body>
 </html>

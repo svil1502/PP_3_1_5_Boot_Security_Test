@@ -16,10 +16,16 @@ public class Role {
     @Column(name = "name")
     private String name;
 
-    @ManyToMany(mappedBy = "roles")
+
+     @ManyToMany(mappedBy = "roles")
     private Set<User> users;
 
+
+
     public Role() {
+    }
+    public Role(String name) {
+        this.name = name;
     }
 
     public Long getId() {
@@ -38,7 +44,7 @@ public class Role {
         this.name = name;
     }
 
-    public Set<User> getUsers() {
+  public Set<User> getUsers() {
         return users;
     }
 
@@ -46,12 +52,14 @@ public class Role {
         this.users = users;
     }
 
+
+
     @Override
     public String toString() {
         return "Role{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", users=" + users +
+              //  ", users=" + users +
                 '}';
     }
 }
