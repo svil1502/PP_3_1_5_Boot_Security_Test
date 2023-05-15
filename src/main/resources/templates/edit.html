@@ -24,7 +24,13 @@
     <label for="password">password: </label>
     <input type="password" th:field="*{password}" id="password" placeholder="password"/>
     <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
-
+    <label>Roles:
+        <input type="checkbox" name="roles"
+               th:each="role : ${allRoles}"
+               th:text="${role.name}"
+               th:value="${role.id}"
+        />
+    </label>
     <input type="submit" value="Обновить"/>
 </form>
 
