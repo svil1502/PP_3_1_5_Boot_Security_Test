@@ -25,7 +25,6 @@ public class UserServiceImp implements UserService {
     public UserServiceImp(UserRepository userRepository, RoleRepository roleRepository, RoleRepository roleRepository1, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository1;
-
         this.passwordEncoder = passwordEncoder;
     }
 
@@ -59,9 +58,6 @@ public class UserServiceImp implements UserService {
     @Override
     public void save(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        Set<Role> roles = new HashSet<>();
-        roles.add(roleRepository.getOne(1L));
-        user.setRoles(roles);
         userRepository.save(user);
     }
 

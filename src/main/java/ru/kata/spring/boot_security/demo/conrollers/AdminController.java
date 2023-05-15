@@ -50,7 +50,6 @@ public class AdminController {
     @GetMapping("/admin/{id}/edit")
     public String showEditUser(@PathVariable("id") int id, Model model) {
         model.addAttribute("user", userService.show(id));
-
         model.addAttribute("allRoles", rolesService.getRoles());
         return "edit";
     }
@@ -65,7 +64,7 @@ public class AdminController {
     @GetMapping("/admin/new")
     public String showPageCreatingUser(Model model) {
         model.addAttribute("user", new User());
-
+        model.addAttribute("allRoles", rolesService.getRoles());
         return "new";
     }
 
