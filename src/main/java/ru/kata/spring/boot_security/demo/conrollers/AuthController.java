@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import ru.kata.spring.boot_security.demo.models.User;
 import ru.kata.spring.boot_security.demo.services.RegistrationService;
-import ru.kata.spring.boot_security.demo.util.UserValidator;
+
 
 import javax.validation.Valid;
 
@@ -17,12 +17,17 @@ import javax.validation.Valid;
 public class AuthController {
 
     private final RegistrationService registrationService;
-    private final UserValidator userValidator;
+
 
     @Autowired
-    public AuthController(RegistrationService registrationService, UserValidator userValidator) {
+    public AuthController(RegistrationService registrationService) {
         this.registrationService = registrationService;
-        this.userValidator = userValidator;
+
+    }
+
+    @GetMapping("/login")
+    public String loginPage() {
+        return "login";
     }
 
 
@@ -32,12 +37,7 @@ public class AuthController {
     }
 
     @PostMapping("/registration")
-    public String performRegistration(@ModelAttribute("user") @Valid User user,
-                                      BindingResult bindingResult) {
-        userValidator.validate(user, bindingResult);
-
-        if (bindingResult.hasErrors())
-            return "/registration";
+    public String performRegistration(@ModelAttribute("user") User user) {
 
         registrationService.register(user);
 

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import ru.kata.spring.boot_security.demo.models.User;
 import ru.kata.spring.boot_security.demo.security.UsersDetails;
 
+import javax.transaction.Transactional;
 import java.util.Optional;
 
 
@@ -25,8 +26,9 @@ public class UsersDetailsService implements UserDetailsService {
     }
 
     @Override
+    @Transactional
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        Optional<User> user = userRepository.findByUsername(s);
+        Optional<User> user = userRepository.findUserByEmail(s);
 
         if (user.isEmpty())
             throw new UsernameNotFoundException("User not found!");
