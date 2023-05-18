@@ -17,9 +17,9 @@
 </head>
 <body>
 <nav class="navbar navbar-dark bg-dark">
-    ЕМАИЛ
-    И
-    РОЛЬ</a>
+    <a class="navbar-brand" th:text="${user1.getUsername()} + ' with roles: ' + ${user1.rolesToString()}" href="#">ЕМАИЛ
+        И
+        РОЛЬ</a>
     </div>
     <a th:href="@{/logout}" class="btn btn-link text-white-50">Logout</a>
     </div>
@@ -68,8 +68,8 @@
                                     <thead>
                                     <tr>
                                         <th scope="col">ID</th>
-                                        <th scope="col">FirstName</th>
-                                        <th scope="col">LastName</th>
+                                        <th scope="col">First name</th>
+                                        <th scope="col">Last name</th>
                                         <th scope="col">Age</th>
                                         <th scope="col">Email</th>
                                         <th scope="col">Role</th>
@@ -120,31 +120,31 @@
 
                                                         <div class="form-group text-center">
                                                             <label class="col-form-label font-weight-bold"
-                                                                   for="Id">ID</label>
+                                                                   for="firstName">ID</label>
                                                             <input type="text" class="form-control"
                                                                    name="Id" readonly
                                                                    th:value="${user.id}"/>
                                                         </div>
                                                         <div class="form-group text-center">
                                                             <label class="col-form-label font-weight-bold"
-                                                                   for="firstName">firstName</label>
+                                                                   for="firstName">First name</label>
                                                             <input type="text" class="form-control"
                                                                    name="firstName" readonly th:value="*{firstName}"
-                                                                   placeholder="firstName"/>
+                                                                   placeholder="First name"/>
                                                         </div>
                                                         <div class="form-group text-center">
                                                             <label class="col-form-label font-weight-bold"
-                                                                   for="lastName">lastName</label>
+                                                                   for="lastName">Last name</label>
                                                             <input type="text" class="form-control"
                                                                    name="lastName" readonly th:value="*{lastName}"
-                                                                   placeholder="lastName"/>
+                                                                   placeholder="Last name"/>
                                                         </div>
                                                         <div class="form-group text-center">
                                                             <label class="col-form-label font-weight-bold"
-                                                                   for="age">age</label>
-                                                            <input type="text" class="form-control"
+                                                                   for="age">Age</label>
+                                                            <input type="number" class="form-control"
                                                                    name="age" readonly th:value="*{age}"
-                                                                   placeholder="age"/>
+                                                                   placeholder="Age"/>
                                                         </div>
 
                                                         <div class="form-group text-center">
@@ -155,12 +155,12 @@
                                                                    aria-describedby="emailHelp" placeholder="Email">
                                                         </div>
                                                         <div class="form-group text-center ">
-                                                            <label class="col-form-label font-weight-bold">Role</label>
-                                                            <select class="form-control" name="roles" multiple size="2">
+                                                            <label class="col-form-label font-weight-bold" for="roles">Role</label>
+                                                            <select class="form-control" name="roles" readonly multiple
+                                                                    size="2">
                                                                 <option th:each="role : ${allRoles}"
                                                                         th:text="${role.name}"
-                                                                        th:value="${role.id}"
-                                                                ></option>
+                                                                        th:value="${role.id}"></option>
                                                             </select>
                                                         </div>
 
@@ -172,6 +172,8 @@
                                                         <button type="submit" class="btn btn-danger text-white">Delete
                                                         </button>
                                                     </div>
+
+
                                                 </div>
                                             </div>
                                         </form>
@@ -198,26 +200,31 @@
 
                                                         <div class="form-group text-center">
                                                             <label class="col-form-label font-weight-bold"
-                                                                   for="firstName">firstName</label>
+                                                                   for="firstName">ID</label>
                                                             <input type="text" class="form-control"
-                                                                   name="firstName" readonly th:value="*{firstName}"
-                                                                   placeholder="firstName"/>
+                                                                   name="Id" readonly
+                                                                   th:value="${user.id}"/>
                                                         </div>
                                                         <div class="form-group text-center">
                                                             <label class="col-form-label font-weight-bold"
-                                                                   for="lastName">lastName</label>
+                                                                   for="firstName">First name</label>
                                                             <input type="text" class="form-control"
-                                                                   name="lastName" readonly th:value="*{lastName}"
-                                                                   placeholder="lastName"/>
+                                                                   name="firstName" th:value="*{firstName}"
+                                                                   placeholder="First name"/>
                                                         </div>
                                                         <div class="form-group text-center">
                                                             <label class="col-form-label font-weight-bold"
-                                                                   for="age">age</label>
+                                                                   for="lastName">Last name</label>
                                                             <input type="text" class="form-control"
-                                                                   name="age" readonly th:value="*{age}"
-                                                                   placeholder="age"/>
+                                                                   name="lastName" th:value="*{lastName}"
+                                                                   placeholder="Last name"/>
                                                         </div>
-
+                                                        <div class="form-group text-center">
+                                                            <label class="col-form-label font-weight-bold"
+                                                                   for="age">Age</label>
+                                                            <input type="number" class="form-control"
+                                                                   name="age" th:value="*{age}" placeholder="Age"/>
+                                                        </div>
                                                         <div class="form-group text-center ">
                                                             <label class="col-form-label font-weight-bold">Email</label>
                                                             <input type="text" th:value="*{email}" class="form-control"
@@ -230,12 +237,11 @@
                                                                    name="password" placeholder="Password">
                                                         </div>
                                                         <div class="form-group text-center ">
-                                                            <label class="col-form-label font-weight-bold">Role</label>
+                                                            <label class="col-form-label font-weight-bold" for="roles">Role</label>
                                                             <select class="form-control" name="roles" multiple size="2">
                                                                 <option th:each="role : ${allRoles}"
                                                                         th:text="${role.name}"
-                                                                        th:value="${role.id}"
-                                                                ></option>
+                                                                        th:value="${role.id}"></option>
                                                             </select>
                                                         </div>
 
@@ -267,26 +273,24 @@
                                 <div class="row justify-content-center align-items-center">
                                     <form class="col-4" th:method="POST" th:action="@{/admin/user}"
                                           th:object="${user}">
-
                                         <div class="form-group text-center ">
-                                            <label class="col-form-label font-weight-bold">firstName</label>
-                                            <input type="text" class="form-control" id="firstName"
-                                                   name="firstName"
-                                                   placeholder="firstName">
+                                            <label class="col-form-label font-weight-bold" for="firstName">First
+                                                name</label>
+                                            <input type="text" class="form-control"
+                                                   id="firstName" name="firstName" placeholder="First name"/>
                                         </div>
                                         <div class="form-group text-center ">
-                                            <label class="col-form-label font-weight-bold">lastName</label>
-                                            <input type="text" class="form-control" id="lastName"
-                                                   name="lastName"
-                                                   placeholder="lastName">
+                                            <label class="col-form-label font-weight-bold" for="lastName">Last
+                                                name</label>
+                                            <input type="text" class="form-control"
+                                                   id="lastName" name="lastName" placeholder="Last name"/>
                                         </div>
-                                        <div class="form-group text-center ">
-                                            <label class="col-form-label font-weight-bold">age</label>
-                                            <input type="text" class="form-control" id="age"
-                                                   name="age"
-                                                   placeholder="age">
+                                        <div class="form-group text-center">
+                                            <label class="col-form-label font-weight-bold">Age</label>
+                                            <input type="number" class="form-control"
+                                                   id="age" name="age"
+                                                   placeholder="Age"/>
                                         </div>
-
 
                                         <div class="form-group text-center ">
                                             <label class="col-form-label font-weight-bold">Email</label>
@@ -301,11 +305,10 @@
                                         </div>
                                         <div class="form-group text-center ">
                                             <label class="col-form-label font-weight-bold" for="roles">Role</label>
-                                            <select class="form-control" name="roles" multiple size="2">
+                                            <select class="form-control" id="roles" name="roles" multiple size="2">
                                                 <option th:each="role : ${allRoles}"
                                                         th:text="${role.name}"
-                                                        th:value="${role.id}"
-                                                ></option>
+                                                        th:value="${role.id}"></option>
                                             </select>
                                         </div>
                                         <div class="form-group text-center ">

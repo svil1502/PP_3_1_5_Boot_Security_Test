@@ -61,8 +61,17 @@ public class UsersDetails implements UserDetails {
         return true;
     }
 
-    // Нужно, чтобы получать данные аутентифицированного пользователя
     public User getUser() {
         return this.user;
     }
+
+    public String rolesToString() {
+        Set<Role> roles = user.getRoles();
+        String role = "";
+        for (Role r : roles)
+            role = role + " " + r.getName();
+        return role;
+    }
+
+
 }

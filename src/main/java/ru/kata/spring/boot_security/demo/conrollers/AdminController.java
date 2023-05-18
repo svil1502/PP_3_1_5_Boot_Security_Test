@@ -9,6 +9,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ru.kata.spring.boot_security.demo.models.User;
 import ru.kata.spring.boot_security.demo.repositories.RoleRepository;
+import ru.kata.spring.boot_security.demo.security.UsersDetails;
 import ru.kata.spring.boot_security.demo.services.RolesService;
 import ru.kata.spring.boot_security.demo.services.UserService;
 
@@ -32,7 +33,9 @@ public class AdminController {
     public String index(Model model) {
         model.addAttribute("users", userService.index());
         model.addAttribute("allRoles", rolesService.getRoles());
-
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UsersDetails user = (UsersDetails) authentication.getPrincipal();
+        model.addAttribute("user1", user);
         return "admin";
     }
 

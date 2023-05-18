@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
-      xmlns:security="">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" xmlns:security="">
 
 <head>
     <meta charset="UTF-8">
@@ -26,10 +25,12 @@
     </div>
     </div>
 </nav>
-<div class="row no-gutters ">
+<div class="row no-gutters " >
     <nav id="sidebarMenu" class="col-md-2 col-lg-2 d-md-block sidebar collapse">
         <div class="position-sticky pt-2">
+
             <ul class="nav nav-pills flex-column">
+
                 <li class="nav-item">
                     <a class="nav-link active" href="/user">
                         User
@@ -41,24 +42,22 @@
     <div class="col-md-10 bg-light">
         <div class="tab-content">
             <div class="container-fluid">
-                <h1>User information-page</h1>
+
                 <div class="tab-content" id="nav-tabContent">
                     <div class="tab-pane fade show active" id="nav-users" role="tabpanel"
                          aria-labelledby="nav-home-tab">
                         <div class="panel panel-default active">
+                            <div class="panel-heading h4">User information page</div>
+                            <p class="fw-bold fs-5">About user</p>
                             <div class="panel-body">
                                 <table class="table table-striped">
-                                    <thead>
-                                    <tr>
-                                        <th class="panel-heading h5">About user</th>
-                                    </tr>
-                                    </thead>
+
                                     <tbody>
                                     <tr>
                                         <th scope="col">ID</th>
-                                        <th scope="col">firstName</th>
-                                        <th scope="col">lastName</th>
-                                        <th scope="col">age</th>
+                                        <th scope="col">First name</th>
+                                        <th scope="col">Last name</th>
+                                        <th scope="col">Age</th>
                                         <th scope="col">Email</th>
                                         <th scope="col">Role</th>
                                         <hr/>
@@ -73,8 +72,17 @@
                                         <td th:text="${user.rolesToString()}"></td>
                                     </tr>
                                     </tbody>
-                                </table>
 
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
 
 </body>
 </html>
