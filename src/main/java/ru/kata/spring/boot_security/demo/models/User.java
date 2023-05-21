@@ -1,8 +1,12 @@
 package ru.kata.spring.boot_security.demo.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Set;
 
 @Entity
@@ -31,19 +35,22 @@ public class User {
     @Column(name = "password")
     private String password;
 
+    //@JsonIgnore
     @ManyToMany()
     @JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
+    //private Collection<Role> roles = new Set<Role>();
 
     public User() {
     }
 
-    public User(String firstName, String lastName, Integer age, String email) {
+    public User(String firstName, String lastName, Integer age, String email, Collection<Role> roles) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.age = age;
         this.email = email;
+        this.roles = (Set<Role>) roles;
     }
 
     public int getId() {
@@ -121,4 +128,5 @@ public class User {
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
+
 }

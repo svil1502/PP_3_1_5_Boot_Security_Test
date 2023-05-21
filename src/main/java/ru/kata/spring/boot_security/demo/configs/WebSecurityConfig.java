@@ -1,6 +1,8 @@
 package ru.kata.spring.boot_security.demo.configs;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -11,6 +13,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import ru.kata.spring.boot_security.demo.services.UsersDetailsService;
+
 
 @Configuration
 @EnableWebSecurity
@@ -30,10 +33,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/login", "/registration").permitAll()
-                //  .antMatchers("/", "/welcome").permitAll()
-
-                .antMatchers("/admin/**").hasRole("ADMIN")
+                .antMatchers("/", "/registration", "/api/admin","/api/users/**", "/active").permitAll()
+                .antMatchers("/admin/**", "/api/**", "/active").hasRole("ADMIN")
                 .antMatchers("/user/**").hasAnyRole("ADMIN","USER")
                 .anyRequest().authenticated()
                 .and()
@@ -45,6 +46,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .logout()
                 .permitAll();
+
     }
 
     // Настраивает аутентификацию
