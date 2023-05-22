@@ -218,7 +218,7 @@ createUserForm.addEventListener('submit', (e) => {
     for (let i = 0; i < roleById.options.length; i++) {
         if (roleById.options[i].selected) {
             roles.push({
-                id: roleById.options[i].value,
+                id: Number(roleById.options[i].value) + 1,
                 name: roleById.options[i].text
             });
         }
@@ -236,7 +236,7 @@ createUserForm.addEventListener('submit', (e) => {
             lastName: lastNameById.value,
             age: ageById.value,
             email: emailById.value,
-            userPassword: passwordById.value,
+            password: passwordById.value,
             roles: roles
         })
     })
