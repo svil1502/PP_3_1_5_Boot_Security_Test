@@ -2,32 +2,32 @@ const usersListUrl = 'http://localhost:8080/api/admin';
 const rolesListUrl = 'http://localhost:8080/api/roles';
 const userActive = 'http://localhost:8080/active';
 let output = '';
-let roleLet;
+let role_;
 
 
-showUserPage()
+showAdmin()
 
 
-const usersTable = document.getElementById('users-table')
+const usersTable = document.getElementById('users-list')
 const listAllUsers = (users) => {
     users.forEach(user => {
-        roleLet = '';
-        user.roles.forEach((role) => roleLet += role.name + " ");
+        role_ = '';
+        user.roles.forEach((role) => role_ += role.name + " ");
         output += `<tr>
                 <th><p>${user.id} </p></th>
                 <th><p>${user.firstName} </p></th>
                 <th><p>${user.lastName} </p></th>
                 <th><p>${user.age} </p></th>
                 <th><p>${user.email} </p></th>
-                <th><p>${roleLet}</p></th>                        
+                <th><p>${role_}</p></th>                        
                 <th>
                     <button type="button" class="btn btn-primary" data-toggle="modal"
-                        data-target="#editModal" id="editButton" data-uid=${user.id}>Edit
+                        data-target="#editModal" id="editButton" data-id=${user.id}>Edit
                     </button>
                 </th>
                 <th>
                     <button type="button" class="btn btn-danger" data-toggle="modal"
-                        data-target="#deleteModal" id="deleteButton" data-uid=${user.id}>Delete
+                        data-target="#deleteModal" id="deleteButton" data-id=${user.id}>Delete
                     </button>
                 </th>
         </tr>`;
@@ -41,16 +41,16 @@ fetch(usersListUrl)
     .then(data => listAllUsers(data));
 
 
-function showUserPage() {
-    const userInfoAdmin = document.getElementById('user-info')
+function showAdmin() {
+    const userInfoAdmin = document.getElementById('about-user')
     let userInfoOutput
 
     fetch(userActive)
         .then(res => res.json())
         .then(data => {
-            roleLet = "";
+            role_ = "";
             console.log(data);
-            data.user.roles.forEach((role) => roleLet += role.name + " ");
+            data.user.roles.forEach((role) => role_ += role.name + " ");
             userInfoOutput = `
             <tr>
                 <td>${data.user.id}</td>
@@ -58,7 +58,7 @@ function showUserPage() {
                 <td>${data.user.lastName}</td>
                 <td>${data.user.age}</td>
                 <td>${data.user.email}</td>
-                <td>${roleLet}</td>
+                <td>${role_}</td>
             </tr>`
             userInfoAdmin.innerHTML = userInfoOutput
         })
@@ -68,7 +68,7 @@ function showUserPage() {
 usersTable.addEventListener('click', (e) => {
     e.preventDefault()
     if (e.target.id === 'editButton') {
-        fetch(`http://localhost:8080/api/users/${e.target.dataset.uid}`)
+        fetch(`http://localhost:8080/api/users/${e.target.dataset.id}`)
             .then(res => res.json())
             .then(data => {
                 $('#idEdit').val(data.id)
@@ -93,18 +93,18 @@ usersTable.addEventListener('click', (e) => {
                     .catch(err => console.error(err));
             });
     } else if (e.target.id === 'deleteButton') {
-        fetch(`http://localhost:8080/api/users/${e.target.dataset.uid}`)
+        fetch(`http://localhost:8080/api/users/${e.target.dataset.id}`)
             .then(res => res.json())
             .then(data => {
-                roleLet = "";
-                data.roles.forEach((role) => roleLet += role.nameToString + " ");
+                role_ = "";
+                data.roles.forEach((role) => role_ += role.name + " ");
                 $('#idDelete').val(data.id)
                 $('#firstNameDelete').val(data.firstName)
                 $('#lastNameDelete').val(data.lastName)
                 $('#ageDelete').val(data.age)
                 $('#emailDelete').val(data.email)
-                $('#passwordDelete').val(data.userPassword)
-                $('#rolesDelete').val(roleLet)
+                $('#passwordDelete').val(data.password)
+                $('#rolesDelete').val(role)
 
                 $('#deleteModal').modal()
             });
@@ -135,8 +135,6 @@ editModalForm.addEventListener('submit', (e) => {
         }
     }
 
-
-
     const requestBody = {
         id: document.getElementById('idEdit').value,
         firstName: firstNameById.value,
@@ -148,7 +146,7 @@ editModalForm.addEventListener('submit', (e) => {
     };
 
     console.log(requestBody);
-    const uid = document.getElementById('idEdit').value
+    const id = document.getElementById('idEdit').value
     fetch(`http://localhost:8080/api/users`, {
         method: 'PUT',
         headers: {
@@ -171,8 +169,8 @@ editModalForm.addEventListener('submit', (e) => {
 const deleteModalForm = document.getElementById('deleteModalForm')
 deleteModalForm.addEventListener('submit', (e) => {
     e.preventDefault()
-    const uid = document.getElementById('idDelete').value
-    fetch(`http://localhost:8080/api/users/${uid}`, {
+    const id = document.getElementById('idDelete').value
+    fetch(`http://localhost:8080/api/users/${id}`, {
         method: 'DELETE'
     })
         .then(res => console.log(res))
@@ -223,7 +221,6 @@ createUserForm.addEventListener('submit', (e) => {
             });
         }
     }
-
 
 
     fetch(createUserUrl, {
